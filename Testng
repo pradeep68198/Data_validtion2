@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="RAPID Automation" parallel="methods" thread-count="1">
+<test name="Medicare VBC Dashboard" >
+ <classes>
+ <class name="com.rapid.Tests.VBC_Test"/> 
+</classes>
+</test>
+</suite>
