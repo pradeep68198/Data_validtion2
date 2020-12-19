@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><RapidAutomation>
+<Dashboard>
+<Name>Medical Dashboard</Name>
+<Status>Not Yet Executed</Status>
+<ReportPath/>
+</Dashboard>
+<Dashboard>
+<Name>Talent Dashboard</Name>
+<Status>Not Yet Executed</Status>
+<ReportPath/>
+</Dashboard>
+<Dashboard>
+<Name>Executive Summary Dashboard</Name>
+<Status>Not Yet Executed</Status>
+<ReportPath/>
+</Dashboard>
+<Dashboard>
+<Name>Local Markets Dashboard</Name>
+<Status>Not Yet Executed</Status>
+<ReportPath/>
+</Dashboard>
+<Dashboard>
+<Name>Finance Dashboard</Name>
+<Status>Not Yet Executed</Status>
+<ReportPath/>
+</Dashboard>
+<Dashboard>
+<Name>Sales Dashboard</Name>
+<Status>Not Yet Executed</Status>
+<ReportPath/>
+</Dashboard>
+<Dashboard>
+<Name>Service Operations Dashboard</Name>
+<Status>Not Yet Executed</Status>
+<ReportPath/>
+</Dashboard>
+<Dashboard>
+<Name>Network Dashboard</Name>
+<Status>Not Yet Executed</Status>
+<ReportPath/>
+</Dashboard>
+<Dashboard>
+<Name>Commercial Dashboard</Name>
+<Status>Not Yet Executed</Status>
+<ReportPath/>
+</Dashboard>
+<Dashboard>
+<Name>Medicare Dashboard</Name>
+<Status>Not Yet Executed</Status>
+<ReportPath/>
+</Dashboard>
+<Dashboard>
+<Name>Medicare VBC Dashboard</Name>
+<Status>Pass</Status>
+<ReportPath>\\MIDP-SFS-010\checogdata\SIT Data\SIT-Informatics\006-General\Automation_Utilities\RAPID Automation\Results\Mail\VBC_Test.html</ReportPath>
+</Dashboard>
+<Dashboard>
+<Name>Service Operations Executive Dashboard</Name>
+<Status>Not Yet Executed</Status>
+<ReportPath/>
+</Dashboard>
+</RapidAutomation>
