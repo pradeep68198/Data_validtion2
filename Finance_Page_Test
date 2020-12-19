@@ -1,0 +1,38 @@
+package com.rapid.Tests;
+
+import java.awt.AWTException;
+import java.io.IOException;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.testng.annotations.Test;
+
+import com.rapid.Scripts.Finance_Script;
+import com.rapid.Utilities.Driver_Wrapper;
+import com.rapid.Utilities.General_Wrapper;
+
+public class Finance_Page_Test extends Driver_Wrapper{
+public Finance_Script obj;
+	
+	
+  public Finance_Page_Test() throws IOException {
+  super();
+  obj=new Finance_Script();}
+
+ /*
+  @Test(priority=1,description="Validation Finance Summary")
+   public void Finance_Summary_Page() throws AWTException, InterruptedException, IOException, InvalidFormatException {
+	obj.Finance_Summary_Navi();
+	obj.Finance_summary_Validation();
+	}
+  */
+  
+  @Test(priority=2,description="Validation Finance Core Financial Metrics")
+  public void Finance_Core_Financial_Metrics_Page() throws AWTException, InterruptedException, IOException, InvalidFormatException {
+	obj.Finance_core_financial_pmpm_Navi();
+	obj.Finance_core_financial_pmpm_Validation();
+	}
+
+  
+  
+  
+}
