@@ -1,0 +1,742 @@
+package com.rapid.Pages;
+
+import java.awt.AWTException;
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+
+import com.rapid.Utilities.General_Wrapper;
+
+public class Medial_Summary_Page extends General_Wrapper{
+	
+public Home_Page home;
+	
+public By Market = By.xpath("//*[@id='List_3413a197-d01d-4174-8099-2e7e714793a1']");
+	
+public String[] DP_Values_Market=new String[] 
+{"All Markets","AZ/MN","California","Capitol","Florida","Georgia/Gulf States",
+"Great Lakes","Heartland/Midland","Keystone","Mid South","New England","Northwest/Mountain",
+"NY_NJ","OH_KY","South Central"};
+
+//All Markets "OT",
+	
+public By Summary_all_mrkts_section_1= By.xpath("//*[@id='Data-Grid_02f647b3-437c-445d-9443-d8ffe0f03c61']");
+public By Summary_all_mrkts_section_2= By.xpath("//*[@id='Data-Grid_9e41c0f6-c7d7-491a-b979-f51e4d52fc88']");
+public By Summary_all_mrkts_section_3= By.xpath("//*[@id='Data-Grid_d941254b-b561-441d-9581-c9b452deb13a']");
+
+	
+public By Summary_all_mrkts_section_1_heading = By.xpath("//*[@id='Data-Grid_02f647b3-437c-445d-9443-d8ffe0f03c61']/div/div[1]/span[3]");
+public By Summary_all_mrkts_section_1_data = By.xpath("//*[@id='Data-Grid_02f647b3-437c-445d-9443-d8ffe0f03c61']/div/div[4]/div[2]/div[2]/table/tbody/tr");
+	
+public By Summary_all_mrkts_section_2_heading = By.xpath("//*[@id='Data-Grid_9e41c0f6-c7d7-491a-b979-f51e4d52fc88']/div/div[1]/span[3]");
+public By Summary_all_mrkts_section_2_data = By.xpath("//*[@id='Data-Grid_9e41c0f6-c7d7-491a-b979-f51e4d52fc88']/div/div[4]/div[2]/div[2]/table/tbody/tr");
+	
+public By Summary_all_mrkts_section_3_heading = By.xpath("//*[@id='Data-Grid_d941254b-b561-441d-9581-c9b452deb13a']/div/div[1]/span[3]");
+public By Summary_all_mrkts_section_3_data = By.xpath("//*[@id='Data-Grid_d941254b-b561-441d-9581-c9b452deb13a']/div/div[4]/div[2]/div[2]/table/tbody/tr");
+
+
+public By Summary_LearnMore_1 = By.xpath("//*[@id='Button_b46881d1-543c-4446-8850-923911d6ab29']/span");
+public By Summary_LearnMore_2 = By.xpath("//*[@id='Button_a9235603-7621-43c3-8ba5-c4091f37b172']/span");
+public By Summary_LearnMore_3 = By.xpath("//*[@id='Button_90926592-7fc6-4cc8-8c9f-d3a554dc189d']/span");
+
+public By Summary_LearnMore_section_1 = By.xpath("//*[@id='Panel_6696f606-7110-4fc2-b45b-836fc0c70461']");
+public By Summary_LearnMore_section_2 = By.xpath("//*[@id='Panel_0eef3957-0e88-43a6-b637-d615772755fb']");
+public By Summary_LearnMore_section_3 = By.xpath("//*[@id='Data-Grid_259c2f95-8dbe-4709-855e-87d66bb66552']");
+
+public By Summary_LearnMore_1_text = By.xpath("//*[@id='Panel_6696f606-7110-4fc2-b45b-836fc0c70461']/div/div[1]/span[3]");
+public By Summary_LearnMore_2_text = By.xpath("//*[@id='Panel_0eef3957-0e88-43a6-b637-d615772755fb']/div/div[1]/span[3]");
+public By Summary_LearnMore_3_text = By.xpath("//*[@id='Data-Grid_259c2f95-8dbe-4709-855e-87d66bb66552']/div/div[1]/span[3]");
+
+
+public By Summary_LearnMore_1_data = By.xpath("//*[@id='Panel_6696f606-7110-4fc2-b45b-836fc0c70461-form']/div/div/div/div/div");
+public By Summary_LearnMore_2_data = By.xpath("//*[@id='Panel_0eef3957-0e88-43a6-b637-d615772755fb-form']/div/div/div/div/div");
+public By Summary_LearnMore_3_data = By.xpath("//*[@id='List_577a45dc-6fd0-4be0-8475-d1fa5204cec1']/span");
+
+public By Summary_LearnMore_close = By.xpath("//*[@id='Panel_6696f606-7110-4fc2-b45b-836fc0c70461']/div/div[1]/div[2]");
+
+
+public By Summary_info_button= By.xpath("//*[@id='Button_68955e8f-1f76-4df3-92d3-39c973eba9a2']");
+public By Summary_info_section= By.xpath("//*[@id='Panel_f280f19c-9af2-47d4-afef-f8ebb95dd066']");
+public By Summary_info_heading= By.xpath("//*[@id='Panel_f280f19c-9af2-47d4-afef-f8ebb95dd066']/div/div[1]/span[3]");
+public By Summary_info_data= By.xpath("//*[@id='Panel_f280f19c-9af2-47d4-afef-f8ebb95dd066-form']/div/div/div/div/div/table/tbody/tr");
+public By Summary_info_close= By.xpath("//*[@id='Panel_f280f19c-9af2-47d4-afef-f8ebb95dd066']/div/div[1]/div[2]");
+  
+    
+
+public void Medical_Summary_info() throws AWTException, InterruptedException, InvalidFormatException, IOException
+{
+waitForElement(Summary_info_button);
+Click(Summary_info_button);
+System.out.println("aa");
+
+if(waitForElement(Summary_info_section)){
+reportStep_Only("Medical Dashboard -- Summary --- Information segment is displayed","PASS");
+System.out.println("gg");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_info_heading)) {
+reportStep_Only("Medical Dashboard -- Summary --- Information section Heading is displayed","PASS");
+System.out.println("aa");
+Thread.sleep(1000);	
+	
+if(Get_Text(Summary_info_heading).contains("Information")) {
+summary_info_data_validation("Medical -- Summary --- Information segment");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary","Medical Dashboard -- Summary --- Information section Heading is NOT displayed","FAIL");
+System.out.println("ii");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary","Medical Dashboard -- Summary --- Information segment is NOT displayed","FAIL");
+System.out.println("ii2");} 
+ 
+waitForElement(Summary_info_close);
+Click(Summary_info_close);
+System.out.println("aa");
+
+
+}
+
+public void Medical_Summary_AllMarkets() throws AWTException, InterruptedException, InvalidFormatException, IOException
+{
+waitForElement(Market);
+Click(Market);
+System.out.println("aa");
+waitForElement(By.xpath("/html[1]/body[1]/div[4]/ul[1]/li[1]/div"));
+Click(By.xpath("/html[1]/body[1]/div[4]/ul[1]/li[1]/div"));
+Thread.sleep(2000);
+
+if(waitForElement(Summary_all_mrkts_section_1)){
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Total - Acute Bed Days & Admits Variance to Plan (October MTD) -- segment is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+if(waitForElement(Summary_all_mrkts_section_1_heading)) {
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Total - Acute Bed Days & Admits Variance to Plan (October MTD) -- section Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+if(Get_Text(Summary_all_mrkts_section_1_heading).contains("Total - Acute Bed Days & Admits Variance to Plan (October MTD)")) {
+medical_section1_validation("Total - Acute Bed Days & Admits Variance to Plan (October MTD)");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary","Medical Dashboard -- Summary  -- All Markets -- Total - Acute Bed Days & Admits Variance to Plan (October MTD) -- section Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary","Medical Dashboard -- Summary  -- All Markets -- Total - Acute Bed Days & Admits Variance to Plan (October MTD) -- segment is NOT displayed","FAIL");
+System.out.println("999");}
+
+//LearnMore - 1
+
+waitForElement(Summary_LearnMore_1);
+Click(Summary_LearnMore_1);
+System.out.println("adffdf");
+
+if(waitForElement(Summary_LearnMore_section_1)){
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Acute Bed Days and Admits - Description -- segment - 1 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_1_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Acute Bed Days and Admits - Description -- section - 1 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_1_text).contains("Acute Bed Days and Admits - Description")) {
+medical_summary_Learnmore1_validation("Acute Bed Days and Admits - Description");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 1","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Acute Bed Days and Admits - Description -- section - 1 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 1","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Acute Bed Days and Admits - Description -- segment - 1 is NOT displayed","FAIL");
+System.out.println("Medical_Dashboard -- Summary -- Learn More 1");}
+
+
+if(waitForElement(Summary_LearnMore_section_2)){
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Acute Bed Days and Admits - Comments -- segment - 2 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_2_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Acute Bed Days and Admits - Comments -- section - 2 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_2_text).contains("Acute Bed Days and Admits - Comments")) {
+medical_summary_Learnmore2_validation("Acute Bed Days and Admits - Comments");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 2","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Acute Bed Days and Admits - Comments -- section - 2 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 2","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Acute Bed Days and Admits - Comments -- segment - 2 is NOT displayed","FAIL");
+System.out.println("Medical_Dashboard -- Summary -- Learn More 2");}
+
+
+if(waitForElement(Summary_LearnMore_section_3)){
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Sources -- segment - 3 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_3_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Sources -- section - 3 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_3_text).contains("Sources")) {
+medical_summary_Learnmore3_validation("Sources");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 3","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Sources -- section - 3 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 3","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Sources -- segment - 3 is NOT displayed","FAIL");
+System.out.println("Medical_Dashboard -- Summary -- Learn More 3");}
+
+waitForElement(Summary_LearnMore_close);
+Click(Summary_LearnMore_close);
+System.out.println("adffdf");
+
+
+// Section 2
+
+if(waitForElement(Summary_all_mrkts_section_2)){
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Rolling 4 Week Scripts / K versus Same Period Prior Year -- segment is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_all_mrkts_section_2_heading)) {
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Rolling 4 Week Scripts / K versus Same Period Prior Year -- section Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_all_mrkts_section_2_heading).contains("Rolling 4 Week Scripts / K versus Same Period Prior Year")) {
+medical_section2_validation("Rolling 4 Week Scripts / K versus Same Period Prior Year");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary","Medical Dashboard -- Summary  -- All Markets -- Rolling 4 Week Scripts / K versus Same Period Prior Year -- section Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary","Medical Dashboard -- Summary  -- All Markets -- Rolling 4 Week Scripts / K versus Same Period Prior Year -- segment is NOT displayed","FAIL");
+System.out.println("999");}
+
+
+//Learn More Section 2
+
+waitForElement(Summary_LearnMore_2);
+Click(Summary_LearnMore_2);
+System.out.println("adffdf");
+
+if(waitForElement(Summary_LearnMore_section_1)){
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Scripts / K versus Same Period Prior Year - Description -- segment - 1 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_1_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Scripts / K versus Same Period Prior Year - Description -- section - 1 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_1_text).contains("Rolling 4 Week Scripts / K versus Same Period Prior Year - Description")) {
+medical_summary_Learnmore1_validation("Rolling 4 Week Scripts / K versus Same Period Prior Year - Description");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 1","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Scripts / K versus Same Period Prior Year - Description -- section - 1 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 1","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Scripts / K versus Same Period Prior Year - Description -- segment - 1 is NOT displayed","FAIL");
+System.out.println("Medical_Dashboard -- Summary -- Learn More 1");}
+
+
+if(waitForElement(Summary_LearnMore_section_2)){
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Scripts / K versus Same Period Prior Year - Comments -- segment - 2 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_2_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Scripts / K versus Same Period Prior Year - Comments -- section - 2 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_2_text).contains("Rolling 4 Week Scripts / K versus Same Period Prior Year - Comments")) {
+medical_summary_Learnmore2_validation("Rolling 4 Week Scripts / K versus Same Period Prior Year - Comments");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 2","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Scripts / K versus Same Period Prior Year - Comments -- section - 2 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 2","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Scripts / K versus Same Period Prior Year - Comments -- segment - 2 is NOT displayed","FAIL");
+System.out.println("Medical_Dashboard -- Summary -- Learn More 2");}
+
+
+if(waitForElement(Summary_LearnMore_section_3)){
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Sources -- segment - 3 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_3_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Sources -- section - 3 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_3_text).contains("Sources")) {
+medical_summary_Learnmore3_validation("Sources");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 3","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Sources -- section - 3 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 3","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Sources -- segment - 3 is NOT displayed","FAIL");
+System.out.println("Medical_Dashboard -- Summary -- Learn More 3");}
+
+waitForElement(Summary_LearnMore_close);
+Click(Summary_LearnMore_close);
+System.out.println("adffdf");
+
+
+
+
+// Section 3
+
+if(waitForElement(Summary_all_mrkts_section_3)){
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category -- segment is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_all_mrkts_section_3_heading)) {
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category -- section Heading is displayed","PASS");
+System.out.println("22");
+
+			
+if(Get_Text(Summary_all_mrkts_section_3_heading).contains("Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category")) {
+medical_section3_validation("Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary","Medical Dashboard -- Summary  -- All Markets -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category -- section Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary","Medical Dashboard -- Summary  -- All Markets -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category -- segment is NOT displayed","FAIL");
+System.out.println("999");}
+
+
+//Learn More Section 3
+
+waitForElement(Summary_LearnMore_3);
+Click(Summary_LearnMore_3);
+System.out.println("adffdf");
+
+if(waitForElement(Summary_LearnMore_section_1)){
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Description -- segment - 1 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_1_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Description -- section - 1 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_1_text).contains("Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Description")) {
+medical_summary_Learnmore1_validation("Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Description");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 1","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Description -- section - 1 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 1","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Description -- segment - 1 is NOT displayed","FAIL");
+System.out.println("Medical_Dashboard -- Summary -- Learn More 1");}
+
+
+if(waitForElement(Summary_LearnMore_section_2)){
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Comments -- segment - 2 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_2_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Comments -- section - 2 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_2_text).contains("Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Comments")) {
+medical_summary_Learnmore2_validation("Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Comments");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 2","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Comments -- section - 2 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 2","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Comments -- segment - 2 is NOT displayed","FAIL");
+System.out.println("Medical_Dashboard -- Summary -- Learn More 2");}
+
+
+if(waitForElement(Summary_LearnMore_section_3)){
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Sources -- segment - 3 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_3_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- All Markets -- Learn More -- Sources -- section - 3 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_3_text).contains("Sources")) {
+medical_summary_Learnmore3_validation("Sources");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 3","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Sources -- section - 3 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 3","Medical Dashboard -- Summary  -- All Markets -- Learn More -- Sources -- segment - 3 is NOT displayed","FAIL");
+System.out.println("Medical_Dashboard -- Summary -- Learn More 3");}
+
+waitForElement(Summary_LearnMore_close);
+Click(Summary_LearnMore_close);
+System.out.println("adffdf");
+
+
+}
+
+public void Medical_Summary_Markets() throws AWTException, InterruptedException, InvalidFormatException, IOException
+{
+for(int i=1;i<DP_Values_Market.length;i++) 
+{
+waitForElement(Market);
+Click(Market);
+System.out.println("aa");
+waitForElement(By.xpath("/html[1]/body[1]/div[4]/ul[1]/li["+(i+1)+"]/div/div"));
+Click(By.xpath("/html[1]/body[1]/div[4]/ul[1]/li["+(i+1)+"]/div/div"));
+Thread.sleep(1000);
+System.out.println("sleeptime");
+	
+	
+if(waitForElement(Summary_all_mrkts_section_1)){
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i] +" - Acute Bed Days & Admits Variance to Plan (October MTD) -- segment is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+if(waitForElement(Summary_all_mrkts_section_1_heading)) {
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i] +" - Acute Bed Days & Admits Variance to Plan (October MTD) -- section Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);				
+if(Get_Text(Summary_all_mrkts_section_1_heading).contains(DP_Values_Market[i] +" - Acute Bed Days & Admits Variance to Plan (October MTD)")) {
+medical_section1_validation(DP_Values_Market[i] +" - Acute Bed Days & Admits Variance to Plan (October MTD)");
+System.out.println("33");}}
+else{
+reportStep("Medical_Dashboard -- Summary","Medical Dashboard -- Summary  -- "+DP_Values_Market[i] +" - Acute Bed Days & Admits Variance to Plan (October MTD) -- section Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary","Medical Dashboard -- Summary  -- "+DP_Values_Market[i] +" - Acute Bed Days & Admits Variance to Plan (October MTD) -- segment is NOT displayed","FAIL");
+System.out.println("999");}
+
+
+//Learn More Section 1
+
+waitForElement(Summary_LearnMore_1);
+Click(Summary_LearnMore_1);
+System.out.println("adffdf");
+
+if(waitForElement(Summary_LearnMore_section_1)){
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Acute Bed Days and Admits - Description -- segment - 1 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_1_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Acute Bed Days and Admits - Description -- section - 1 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_1_text).contains("Acute Bed Days and Admits - Description")) {
+medical_summary_Learnmore1_validation(DP_Values_Market[i]+" -- Acute Bed Days and Admits - Description");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 1","Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Acute Bed Days and Admits - Description -- section - 1 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 1","Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Acute Bed Days and Admits - Description -- segment - 1 is NOT displayed","FAIL");
+System.out.println("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More 1");}
+
+
+if(waitForElement(Summary_LearnMore_section_2)){
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Acute Bed Days and Admits - Comments -- segment - 2 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_2_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Acute Bed Days and Admits - Comments -- section - 2 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_2_text).contains("Acute Bed Days and Admits - Comments")) {
+medical_summary_Learnmore2_validation(DP_Values_Market[i]+" -- Acute Bed Days and Admits - Comments");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 2","Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Acute Bed Days and Admits - Comments -- section - 2 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 2","Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Acute Bed Days and Admits - Comments -- segment - 2 is NOT displayed","FAIL");
+System.out.println("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More 2");}
+
+
+if(waitForElement(Summary_LearnMore_section_3)){
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Sources -- segment - 3 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_3_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Sources -- section - 3 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_3_text).contains("Sources")) {
+medical_summary_Learnmore3_validation(DP_Values_Market[i]+" -- Sources");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 3","Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Sources -- section - 3 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 3","Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Sources -- segment - 3 is NOT displayed","FAIL");
+System.out.println("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More 3");}
+
+waitForElement(Summary_LearnMore_close);
+Click(Summary_LearnMore_close);
+System.out.println("adffdf");
+
+
+//Section 2
+
+if(waitForElement(Summary_all_mrkts_section_3)){
+reportStep_Only("Medical Dashboard -- Summary  -- "+ DP_Values_Market[i] +" -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category -- segment is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_all_mrkts_section_3_heading)) {
+reportStep_Only("Medical Dashboard -- Summary  -- "+ DP_Values_Market[i] +" -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category -- section Heading is displayed","PASS");
+System.out.println("22");
+
+			
+if(Get_Text(Summary_all_mrkts_section_3_heading).contains("Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category")) {
+medical_section3_validation("Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary","Medical Dashboard -- Summary  -- "+ DP_Values_Market[i] +" -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category -- section Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary","Medical Dashboard -- Summary  -- "+ DP_Values_Market[i] +" -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category -- segment is NOT displayed","FAIL");
+System.out.println("999");}
+
+System.out.println("Medical Dashboard -- Summary  -- "+ DP_Values_Market[i]);
+
+
+//Learn More Section 3
+
+waitForElement(Summary_LearnMore_3);
+Click(Summary_LearnMore_3);
+System.out.println("adffdf");
+
+if(waitForElement(Summary_LearnMore_section_1)){
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Description -- segment - 1 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_1_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Description -- section - 1 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_1_text).contains("Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Description")) {
+medical_summary_Learnmore1_validation(DP_Values_Market[i]+" -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Description");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 1","Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Description -- section - 1 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 1","Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Description -- segment - 1 is NOT displayed","FAIL");
+System.out.println("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More 1");}
+
+
+if(waitForElement(Summary_LearnMore_section_2)){
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Comments -- segment - 2 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_2_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Comments -- section - 2 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_2_text).contains("Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Comments")) {
+medical_summary_Learnmore2_validation(DP_Values_Market[i]+" -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Comments");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 2","Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Comments -- section - 2 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 2","Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Rolling 4 Week Utilization versus Same Period Prior Year by Medical Cost Category - Comments -- segment - 2 is NOT displayed","FAIL");
+System.out.println("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More 2");}
+
+
+if(waitForElement(Summary_LearnMore_section_3)){
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Sources -- segment - 3 is displayed","PASS");
+System.out.println("11");
+Thread.sleep(1000);
+
+if(waitForElement(Summary_LearnMore_3_text)) {
+reportStep_Only("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Sources -- section - 3 Heading is displayed","PASS");
+System.out.println("22");
+Thread.sleep(1000);	
+			
+if(Get_Text(Summary_LearnMore_3_text).contains("Sources")) {
+medical_summary_Learnmore3_validation(DP_Values_Market[i]+" -- Sources");
+System.out.println("33");
+}}
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 3","Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Sources -- section - 3 Heading is NOT displayed","FAIL");
+System.out.println("99");
+}}
+
+else{
+reportStep("Medical_Dashboard -- Summary -- Learn More 3","Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More -- Sources -- segment - 3 is NOT displayed","FAIL");
+System.out.println("Medical Dashboard -- Summary  -- "+DP_Values_Market[i]+" -- Learn More 3");}
+
+waitForElement(Summary_LearnMore_close);
+Click(Summary_LearnMore_close);
+System.out.println("adffdf");
+
+System.out.println("Medical Dashboard -- Summary  -- "+ DP_Values_Market[i]);
+
+
+}}
+
+
+
+public void medical_section1_validation(String text) throws InvalidFormatException, IOException{
+List<WebElement> all=driver.findElements(Summary_all_mrkts_section_1_data);  
+if(all.size()>0){
+reportStep_Only("Data Present in the "+text+" Section","PASS");
+}
+
+else{
+reportStep("Medical Summary","Data NOT Present in the "+text+" Section","FAIL");
+}}
+
+public void medical_section2_validation(String text) throws InvalidFormatException, IOException{
+List<WebElement> all=driver.findElements(Summary_all_mrkts_section_2_data);  
+if(all.size()>0){
+reportStep_Only("Data Present in the "+text+" Section","PASS");
+}
+
+else{
+reportStep("Medical Summary","Data NOT Present in the "+text+" Section","FAIL");
+}}
+
+public void medical_section3_validation(String text) throws InvalidFormatException, IOException{
+List<WebElement> all=driver.findElements(Summary_all_mrkts_section_3_data);  
+if(all.size()>0){
+reportStep_Only("Data Present in the "+text+" Section","PASS");
+}
+
+else{
+reportStep("Medical Summary","Data NOT Present in the "+text+" Section","FAIL");
+}}
+
+public void medical_summary_Learnmore1_validation(String text) throws InvalidFormatException, IOException{
+List<WebElement> all=driver.findElements(Summary_LearnMore_1_data);  
+if(all.size()>0){
+reportStep_Only("Data Present in the "+text+" Section","PASS");
+}
+
+else{
+reportStep_Only("Data NOT Present in the "+text+" Section","INFO");
+}}
+
+public void medical_summary_Learnmore2_validation(String text) throws InvalidFormatException, IOException{
+List<WebElement> all=driver.findElements(Summary_LearnMore_2_data);  
+if(all.size()>0){
+reportStep_Only("Data Present in the "+text+" Section","PASS");
+}
+
+else{
+reportStep_Only("Data NOT Present in the "+text+" Section","INFO");
+}}
+
+public void medical_summary_Learnmore3_validation(String text) throws InvalidFormatException, IOException{
+List<WebElement> all=driver.findElements(Summary_LearnMore_3_data);  
+if(all.size()>0){
+reportStep_Only("Data Present in the "+text+" Section","PASS");
+}
+
+else{
+reportStep_Only("Data NOT Present in the "+text+" Section","INFO");
+}}
+
+
+public void summary_info_data_validation(String text) throws InvalidFormatException, IOException{
+List<WebElement> all=driver.findElements(Summary_info_section);  
+if(all.size()>0){
+reportStep_Only("Data Present in the "+text+" Section","PASS");
+}
+
+else{
+reportStep("Medical Summary","Data NOT Present in the "+text+" Section","FAIL");
+}}
+
+
+
+}
