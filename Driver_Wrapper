@@ -1,0 +1,181 @@
+package com.rapid.Utilities;
+
+import java.awt.AWTException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.ITestContext;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+import org.xml.sax.SAXException;
+
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+
+
+public class Driver_Wrapper extends General_Wrapper {
+	
+	public Properties prob;
+	public String className;
+	public boolean Status=true;
+	
+	public Driver_Wrapper() throws IOException{
+		
+		
+		
+		prob=new Properties();
+		
+	}
+	
+
+	@BeforeClass
+    public void beforeClass(ITestContext context) throws FileNotFoundException, IOException, InterruptedException, AWTException {
+    System.out.println("33");
+      prob.load(new FileInputStream(new File("Object.properties")));
+           Browser_value=prob.getProperty("Browser_value");
+           
+           className = getClass().getSimpleName();
+           System.out.println(className);
+           Browser_Name=Browser_value;
+           formatter1 = new SimpleDateFormat("dd_MM_yyyy_hh_mm");
+           String folder_Name=className+"_"+Browser_Name+"_"+formatter1.format(new Date())+"\\";
+
+		
+		Result_Path=prob.getProperty("Result_Path")+folder_Name;
+        URL=prob.getProperty("BaseURL");
+        Mail_Path=prob.getProperty("Mail_Path");
+		Pass_Img=Result_Path+"Pass_Screenshots\\";
+		Fail_Img=Result_Path+"Fail_Screenshots\\";
+		Report_Path=Result_Path+"Reports\\";
+		Doc_Path=Result_Path+"Documents\\";
+		Info_Excel=Report_Path+"RAPID_UI_Result.xlsx";
+		//String Temp_Path="./src/com/rapid/Utilities/RAPID_UI_Result.xlsx";
+		File files1 = new File(Pass_Img);
+        if (!files1.exists()) {
+            if (files1.mkdirs()) {
+                System.out.println("Folder created");
+            } else {
+                System.out.println("Failed to create directories!");
+            }
+        }
+        File files2 = new File(Fail_Img);
+        if (!files2.exists()) {
+            if (files2.mkdirs()) {
+                System.out.println("Folder created");
+            } else {
+                System.out.println("Failed to create directories!");
+            }
+        }
+        File files3 = new File(Report_Path);
+        if (!files3.exists()) {
+            if (files3.mkdirs()) {
+                System.out.println("Folder created");
+            } else {
+                System.out.println("Failed to create directories!");
+            }
+        }
+        File files4 = new File(Doc_Path);
+        if (!files4.exists()) {
+            if (files4.mkdirs()) {
+                System.out.println("Folder created");
+            } else {
+                System.out.println("Failed to create directories!");
+            }
+        }
+       // File_Copy(Temp_Path,Info_Excel);
+		startResult();
+		//Browser_Setup(browser,URL);
+		
+	}
+	
+
+	
+
+	@BeforeMethod
+	
+	public void beforeMethod(Method testMethod) throws IOException, InterruptedException, AWTException{
+		prob.load(new FileInputStream(new File("Object.properties")));
+		//String url=prob.getProperty("BaseURL");
+		
+		Browser_Setup(Browser_value,URL);
+		Test test1 = testMethod.getAnnotation(Test.class);
+		General_Wrapper.testCaseName=testMethod.getName();
+		General_Wrapper.testDescription=test1.description();
+		General_Wrapper.category="RAPID Automated UI Validation";
+		General_Wrapper.authors="QA Team";
+		test = startTestCase(testCaseName, testDescription);
+		test.assignCategory(category);
+		test.assignAuthor(authors);
+		
+		
+		
+	}
+		
+	@AfterClass
+	public void afterClass() throws IOException, ParserConfigurationException, SAXException, TransformerException {
+		
+		endResult();
+		
+		File f1= new File(Final_report);
+		File f2= new File(Mail_Path+className+".html");
+		FileUtils.copyFile(f1, f2);
+		String val=Class_Name_Finder(className);
+		System.out.println(val);
+		if (Status) {
+			XML_Updater(val,"Pass",Mail_Path+className+".html");
+					}
+		else {
+			XML_Updater(val,"Fail",Mail_Path+className+".html");
+		}
+		
+		
+		
+	}
+
+
+	@AfterMethod
+	public void afterMethod(ITestResult result) throws IOException {
+		
+		driver.quit();
+		
+		endTestcase();
+	
+		
+		if(result.getStatus() == ITestResult.SUCCESS)
+	    {
+
+			
+			System.out.println("Pass");
+	    }
+
+	    else if(result.getStatus() == ITestResult.FAILURE)
+	    {
+	    	Status=false;
+	    	System.out.println("Fail");
+	    }
+
+	    
+		
+	}
+	
+}
+
