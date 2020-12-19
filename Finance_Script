@@ -1,0 +1,119 @@
+package com.rapid.Scripts;
+
+import java.awt.AWTException;
+import java.io.IOException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import com.rapid.Pages.Home_Page;
+import com.rapid.Pages.Finance_Core_financial_metrics_Latest;
+import com.rapid.Pages.Finance_Summary_Latest;
+import com.rapid.Pages.Finance_membership;
+import com.rapid.Pages.Finance_productivity_results;
+import com.rapid.Utilities.General_Wrapper;
+
+public class Finance_Script extends General_Wrapper{
+	
+public Home_Page home;
+public Finance_Summary_Latest sum;
+public Finance_Core_financial_metrics_Latest core;
+public Finance_productivity_results prod;
+public Finance_membership mem;
+	
+	
+	
+public Finance_Script(){
+home=new Home_Page();
+sum=new Finance_Summary_Latest();
+core=new Finance_Core_financial_metrics_Latest();
+prod=new Finance_productivity_results();
+mem=new Finance_membership();
+}
+	
+
+public void Finance_Summary_Navi() throws AWTException, InterruptedException, InvalidFormatException, IOException
+{ 
+home.Finance_Action();
+}
+		
+public void Finance_summary_Validation() throws IOException, AWTException, InterruptedException, InvalidFormatException
+{ 
+sum.Finance_summary_info();	
+sum.Finance_summary_healthcare_benefit_segment();
+sum.Finance_summary_aetna();
+sum.Finance_summary_commercial();
+sum.Finance_summary_government();
+sum.Finance_summary_localmarkets();
+sum.Finance_summary_Medicare_Medicaid();
+sum.Finance_summary_individual_LocalMarkets_selections();
+}
+	
+
+
+
+public void Finance_core_financial_pmpm_Navi() throws AWTException, InterruptedException, InvalidFormatException, IOException
+{ 
+home.Finance_Action();
+core.Finance_Core_Financial_PMPM_Page_Display();
+}
+	
+public void Finance_core_financial_pmpm_Validation() throws IOException, AWTException, InterruptedException, InvalidFormatException
+{ 
+core.Finance_core_financial_metrics_2017_HBS();
+
+}
+	
+
+
+
+
+
+
+
+
+public void Finance_productivity_results_Navi() throws AWTException, InterruptedException, InvalidFormatException, IOException
+{ 
+home.Finance_Action();
+prod.Finance_productivity_results_Page_Display();
+
+}
+
+
+public void Finance_productivity_results_Validation() throws IOException, AWTException, InterruptedException, InvalidFormatException
+{ 
+prod.Finance_productivity_results_2018_aetna();
+prod.Finance_productivity_results_2019_aetna();
+prod.Finance_productivity_results_2018_aetnacore();
+prod.Finance_productivity_results_2019_aetnacore();
+prod.Finance_productivity_results_2018_commercial();
+prod.Finance_productivity_results_2019_commercial();
+prod.Finance_productivity_results_2018_government();
+prod.Finance_productivity_results_2019_government();
+prod.Finance_productivity_results_2018_localmarkets();
+prod.Finance_productivity_results_2019_localmarkets();
+
+
+
+
+
+}
+
+
+public void Finance_membership_results_Navi() throws AWTException, InterruptedException, InvalidFormatException, IOException
+{ 
+home.Finance_Action();
+mem.Finance_Membership_Page_Display();
+
+}
+
+public void Finance_membership_results_Validation() throws IOException, AWTException, InterruptedException, InvalidFormatException
+{ 
+mem.Finance_membership_2019_HBS();
+mem.Finance_membership_2019_aetnacore();
+mem.Finance_membership_2019_aetnacore_subsegs();
+
+
+
+}
+
+
+
+}
