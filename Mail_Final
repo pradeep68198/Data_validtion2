@@ -1,0 +1,167 @@
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Properties;
+
+
+import javax.mail.Authenticator;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+
+import javax.mail.internet.MimeMessage;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+public class Mail_Final {
+	
+	public static Date date = new Date();
+	 public static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+	 public static String formattedDate = sdf.format(date);
+	 public static String xml_file="Result.xml";
+	 public static HashMap<String, String> Status =new HashMap<String, String>();
+	 public static HashMap<String, String> Link =new HashMap<String, String>();
+
+	 public static void main(String[] args) throws SAXException, IOException, ParserConfigurationException {
+			
+			String host = "mail.aetna.com";
+	        String port = "25";
+	        String mailFrom = "AravindanJ@aetna.com";
+	        String password = "Theo1695$$$$";
+	 
+	      
+	        String mailTo = "SelvarajR@aetna.com,AravindanJ@aetna.com";
+	        String subject = "RAPID Automation Test Results - QA Environment | "+formattedDate;
+	        
+	       
+	        String message = "<i>Hi All,</i><br><br>";
+	        message += "<b>Following are the results of the automated testing that were carried out in Zudy Vinyl - QA Environment.</b><br><br>";
+	       
+	        XML_Read();
+	        
+	        message += "<table border=1 width=500 align=center><tr bgcolor=\"orange\"><th>Scenarios</th><th>Execution Status</th><th>Report Link</th></tr>";
+	        
+	        for (String key : Status.keySet())  
+	  	    { 
+	        	
+	        	String sce=key;
+	        	String val=Status.get(key);
+				String link=Link.get(key);
+	        	
+	        	if(!(val.equalsIgnoreCase("Not Yet Executed"))) {
+	        		
+	        		if(val.equalsIgnoreCase("Pass")) {
+	        		
+	        		message += "<tr><td>"+sce+"</td><td bgcolor=\"green\">"+val+"</td><td><a href=\""+link+"\" >Click Here</a></td></tr>";
+	        		}
+	        		else {
+	        			
+	        			message += "<tr><td>"+sce+"</td><td bgcolor=\"red\">"+val+"</td><td><a href=\""+link+"\" >Click Here</a></td></tr>";
+	        			
+	        		}
+	        		
+	        	}
+	        	
+	  	    }
+	        
+	        message +="</table><br>";
+	        
+	        
+	 
+	        message +="<b>Thanks & Regards,<b><br>";
+	        
+	        message +="<b>RAPID QA Automation Team<b>";
+	 
+	        try {
+	            sendHtmlEmail(host, port, mailFrom, password, mailTo,
+	                    subject, message);
+	            System.out.println("Email sent.");
+	        } catch (Exception ex) {
+	            System.out.println("Failed to sent email.");
+	            ex.printStackTrace();
+	        }
+
+		}
+		
+		public static void sendHtmlEmail(String host, String port,
+	            final String userName, final String password, String toAddress,
+	            String subject, String message) throws AddressException,
+	            MessagingException {
+	 
+	        // sets SMTP server properties
+	        Properties properties = new Properties();
+	        properties.put("mail.smtp.host", host);
+	        properties.put("mail.smtp.port", port);
+	        properties.put("mail.smtp.auth", "true");
+	        properties.put("mail.smtp.starttls.enable", "true");
+	 
+	        // creates a new session with an authenticator
+	        Authenticator auth = new Authenticator() {
+	            public PasswordAuthentication getPasswordAuthentication() {
+	                return new PasswordAuthentication(userName, password);
+	            }
+	        };
+	 
+	        Session session = Session.getInstance(properties, auth);
+	 
+	        // creates a new e-mail message
+	        Message msg = new MimeMessage(session);
+	 
+	        msg.setFrom(new InternetAddress(userName));
+	         msg.setRecipients(Message.RecipientType.TO,InternetAddress.parse(toAddress));
+	        msg.setSubject(subject);
+	        msg.setSentDate(new Date());
+	        // set plain text message
+	        msg.setContent(message, "text/html");
+	 
+	        // sends the e-mail
+	        Transport.send(msg);
+	 
+	    }
+		
+		public static void XML_Read() throws SAXException, IOException, ParserConfigurationException {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	        Document doc = dBuilder.parse(xml_file);
+
+	        NodeList nList = doc.getElementsByTagName("Dashboard");
+	        
+	        for (int i = 0; i < nList.getLength(); i++) {
+	            System.out.println("Processing element " + (i+1) + "/" + nList.getLength());
+	            Node node = nList.item(i);
+	            if (node.getNodeType() == Node.ELEMENT_NODE) {
+	                Element element = (Element) node;
+	                
+	                String s1 = element.getElementsByTagName("Name").item(0).getTextContent().trim();
+	                String s2 = element.getElementsByTagName("Status").item(0).getTextContent().trim();
+					 String s3 = element.getElementsByTagName("ReportPath").item(0).getTextContent().trim();
+	                Status.put(s1, s2);
+					Link.put(s1,s3);
+	            }
+	        }
+
+	     
+	        
+	        
+			System.out.println("Done ");
+	        
+		}
+	 
+
+	}
