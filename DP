@@ -1,0 +1,119 @@
+package com.JE.Tests;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.sql.SQLException;
+import java.text.ParseException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+
+import org.apache.http.auth.AuthenticationException;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+import org.xml.sax.SAXException;
+
+import com.JE.Utilities.Driver_Wrapper;
+import com.JE.Utilities.General_Wrapper;
+import com.jcraft.jsch.JSchException;
+
+public class Non_Severance extends Driver_Wrapper{
+	
+	public Non_Severance() throws IOException {
+		super();
+	}
+	
+	
+
+	 @Test(dataProvider = "dp" ,priority=1,description = "Validating whether user able to submit job elimination request for Non Severance Employee")
+	 
+	 public void Aetna_Legacy_Non_Severance_Scenario(String launch, String Doc_reviewed_by, String  Start_Date, String Letter_Date, String Employee_ID,String Override,String Workflow) throws IOException, JSchException, InterruptedException, ParseException, AuthenticationException, ClassNotFoundException, SQLException, URISyntaxException, TransformerFactoryConfigurationError, TransformerException, ParserConfigurationException, SAXException {
+
+	     
+		 NS_Legacy.Aetna_Legacy(launch,Doc_reviewed_by,Start_Date,Letter_Date,Employee_ID,Override,Workflow);
+		 NS_Legacy.make_reset();
+	 
+	 
+	}
+	 
+	 
+	 @DataProvider
+	    public Object[][] dp() {
+	    	
+
+	          Object[][] data = General_Wrapper.getInputData(Data_Sheet,"Sheet1");
+	          return data;
+	    }
+
+	
+	
+	
+  
+}
+
+
+
+
+---------------------------------------
+
+public static String[][] getInputData(String fileName, String sheetName) {
+
+    String[][] data = null;
+
+    try {
+
+         FileInputStream fis = new FileInputStream(new File(fileName));// ("./data/"+dataSheetName+".xlsx"));
+         XSSFWorkbook workbook = new XSSFWorkbook(fis);
+
+         XSSFSheet sheet = workbook.getSheet(sheetName);
+         DataFormatter format=new DataFormatter();
+         int rowCount = sheet.getLastRowNum();
+         XSSFCell cell;
+         // get the number of columns
+         int columnCount = sheet.getRow(0).getLastCellNum();
+         data = new String[rowCount][columnCount];
+
+         // loop through the rows
+         for (int i = 1; i < rowCount + 1; i++) {
+              try {
+                    XSSFRow row = sheet.getRow(i);
+                    for (int j = 0; j < columnCount; j++) { // loop through the
+                                                                         // columns
+                         try {
+                              String cellValue = "";
+                              cell=row.getCell(j);
+                              try {
+                            	  
+                            	  if(!(cell==null)){
+                            		  cellValue=format.formatCellValue(cell);
+                    				}
+                    				else{
+                    					cellValue=null;
+                    				}
+                            	  
+                                   
+                              } catch (NullPointerException e) {
+
+                              }
+
+                              data[i - 1][j] = cellValue; // add to the data array
+                         } catch (Exception e) {
+                              e.printStackTrace();
+                         }
+                    }
+
+              } catch (Exception e) {
+                    e.printStackTrace();
+              }
+         }
+         fis.close();
+
+    } catch (Exception e) {
+         e.printStackTrace();
+    }
+
+    return data;
+
+}
