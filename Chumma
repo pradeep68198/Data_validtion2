@@ -1,6 +1,0 @@
-<role rolename="manager-gui"/>
-  <role rolename="manager-status"/>
-   <role rolename="manager-script"/>
-  <role rolename="manager-jmx"/>
-  <role rolename="admin"/>
-  <user username="admin" password="admin" roles="admin,manager-jmx,manager-gui,manager-status,manager-script"/>
