@@ -1,0 +1,9 @@
+cd\
+pushd \\MIDP-SFS-010\checogdata\SIT Data\SIT-Informatics\006-General\Automation_Utilities\RAPID Automation\Rapid_Client_two
+set path=\\MIDP-SFS-010\checogdata\SIT Data\SIT-Informatics\006-General\Automation_Utilities\jdk18\bin;
+set classpath=\\MIDP-SFS-010\checogdata\SIT Data\SIT-Informatics\006-General\Automation_Utilities\CVS_JE_lib\*;
+javac Rapid_UI.java
+java Rapid_UI
+java -cp ".\bin;\\MIDP-SFS-010\checogdata\SIT Data\SIT-Informatics\006-General\Automation_Utilities\CVS_JE_lib\*;" org.testng.TestNG Testng.xml
+javac Mail_Final.java
+java Mail_Final
