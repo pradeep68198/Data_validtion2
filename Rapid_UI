@@ -1,0 +1,162 @@
+import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+import java.io.InputStream;
+import java.util.Properties;
+
+public class Rapid_UI {
+	
+	 public static String xml_file="Result.xml";
+	
+	
+	public static void main(String[] args) throws IOException, InterruptedException ,SAXException, ParserConfigurationException, TransformerException{
+		
+		Properties prop = new Properties();
+		InputStream input = new FileInputStream("Object.properties");
+		prop.load(input);
+		String Owner=prop.getProperty("Mail_Path");
+		 File folder = new File(Owner);
+    	 File[] listOfFiles = folder.listFiles(); 
+    	
+    	 for (int j = 0; j < listOfFiles.length; j++) 
+    	 {
+    		 String name=listOfFiles[j].getName();
+    		 new File( Owner+name).delete();
+    		 
+    	 }
+		 
+		 XML_Updater("Talent Dashboard","Not Yet Executed");
+		 XML_Updater("Medical Dashboard","Not Yet Executed");
+		 XML_Updater("Executive Summary Dashboard","Not Yet Executed");
+		  XML_Updater("Local Markets Dashboard","Not Yet Executed");
+		 XML_Updater("Finance Dashboard","Not Yet Executed");
+		 XML_Updater("Sales Dashboard","Not Yet Executed");
+		  XML_Updater("Service Operations Dashboard","Not Yet Executed");
+		 XML_Updater("Network Dashboard","Not Yet Executed");
+		 XML_Updater("Commercial Dashboard","Not Yet Executed");
+		  XML_Updater("Medicare Dashboard","Not Yet Executed");
+		 XML_Updater("Medicare VBC Dashboard","Not Yet Executed");
+		  XML_Updater("Service Operations Executive Dashboard","Not Yet Executed");
+		
+		
+	   String[][] Mydata=readXLSX("\\\\MIDP-SFS-010\\checogdata\\SIT Data\\SIT-Informatics\\006-General\\Automation_Utilities\\RAPID Automation\\Driver_Macro.xlsm","Setup");
+		PrintWriter writer=new PrintWriter("Testng.xml");
+		writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+		writer.println("<!DOCTYPE suite SYSTEM \"http://testng.org/testng-1.0.dtd\" >");
+		writer.println("<suite name=\"RAPID Automation\" parallel=\"methods\" thread-count=\"1\">");
+		for(int i=0;i<Mydata[0].length;i++) {
+			if(Mydata[2][i].equalsIgnoreCase("Y")) {
+				String Script = Mydata[0][i];
+				String Script1=Mydata[1][i];
+		writer.println("<test name=\""+Script+"\" >");
+		writer.println(" <classes>");
+		writer.println(" <class name=\"com.rapid.Tests."+Script1+"\"/> ");
+		writer.println("</classes>");
+		writer.println("</test>");
+			}
+		}
+		writer.println("</suite>");
+		writer.close();
+		Thread.sleep(3000);
+
+	}
+	
+	public static String[][] readXLSX(String Filepath,String Sheet) throws IOException{    	 
+  		File excel=new File(Filepath);  		
+  		FileInputStream fis=new FileInputStream(excel);  		
+  		String Value=null;
+  		XSSFWorkbook book=new XSSFWorkbook(fis);  		
+  		XSSFSheet ws=book.getSheet(Sheet);  		
+  		XSSFCell cell;  		
+  		DataFormatter format=new DataFormatter();
+  		int rowNum=ws.getLastRowNum()+1;
+  		int colNum=ws.getRow(0).getLastCellNum();
+  		
+  		String[][] Parameter=new String[(colNum)][(rowNum)];
+  		for(int i=0;i<rowNum;i++){
+  			XSSFRow row=ws.getRow(i);
+  			for(int j=0;j<colNum;j++){
+  				
+  				cell=row.getCell(j);
+  				if(!(cell==null)){
+  					Value=format.formatCellValue(cell);
+  				}
+  				else{
+  					Value=null;
+  				}
+  				Parameter[j][i]=Value;
+  			}
+  			
+  		}
+  		book.close();
+  		return Parameter;
+  		
+  	}
+	
+	public static void XML_Updater(String tag,String Msg) throws ParserConfigurationException, SAXException, IOException, TransformerException {
+		
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(xml_file);
+
+       
+        
+        NodeList nList = doc.getElementsByTagName("Dashboard");
+        
+        for (int i = 0; i < nList.getLength(); i++) {
+        	
+        	Node node = nList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                
+                String s1 = element.getElementsByTagName("Name").item(0).getTextContent().trim();
+                
+                
+               
+                if(s1.equalsIgnoreCase(tag)) {
+                	
+                	element.getElementsByTagName("Status").item(0).setTextContent(Msg);
+					element.getElementsByTagName("ReportPath").item(0).setTextContent("");
+                
+                
+            }
+                
+                
+                
+              
+                
+            }
+        	
+        }
+        
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource domSource = new DOMSource(doc);
+
+        StreamResult streamResult = new StreamResult(new File(xml_file).getPath());
+        transformer.transform(domSource, streamResult);
+	}
+
+}
